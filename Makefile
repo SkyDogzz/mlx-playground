@@ -11,13 +11,15 @@ endif
 
 SRC_DIR = src
 MATH_DIR = src/math
+MATH_DIR = src/utils
 MLX_DIR = .minilibx
 OBJ_DIR = obj
 INC_DIR = include
 
 SRC = $(wildcard $(SRC_DIR)/*.c)
 SRC_MATH = $(wildcard $(MATH_DIR)/*.c)
-SRCS = $(SRC) $(SRC_MATH)
+SRC_UTILS = $(wildcard $(UTILS_DIR)/*.c)
+SRCS = $(SRC) $(SRC_MATH) $(SRC_UTILS)
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC)) \
        $(patsubst $(MATH_DIR)/%.c, $(OBJ_DIR)/math_%.o, $(SRC_MATH))

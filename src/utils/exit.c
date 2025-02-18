@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_playground.h                                   :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tstephan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/18 18:38:54 by tstephan          #+#    #+#             */
-/*   Updated: 2025/02/18 19:19:26 by tstephan         ###   ########.fr       */
+/*   Created: 2025/02/18 19:18:16 by tstephan          #+#    #+#             */
+/*   Updated: 2025/02/18 19:21:27 by tstephan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_PLAYGROUND_H
-# define MLX_PLAYGROUND_H
+#include "../../include/mlx_playground.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include "../.minilibx/mlx.h"
-# include <sysexits.h>
-
-typedef enum e_prog
+void	exit_with_error(const char *error, int error_code)
 {
-	FRACTOL
-}	t_prog;
-
-void	exit_with_error(const char *error, int error_code);
-
-#endif
+	fprintf(stderr, "%s\n", error);
+	exit(error_code);
+}
