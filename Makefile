@@ -36,7 +36,7 @@ mlx: $(MLX_DIR)/libmlx.a
 
 $(MLX_DIR)/libmlx.a:
 	if [ ! -d "$(MLX_DIR)" ]; then \
-		git clone https://github.com/42Paris/minilibx-linux $(MLX_DIR); \
+		git clone https://github.com/42Paris/minilibx-linux --depth=1 $(MLX_DIR); \
 	fi
 	make -C $(MLX_DIR)
 
@@ -48,7 +48,7 @@ relibft:
 
 $(LIBFT_DIR)/libft.a:
 	if [ ! -d "$(LIBFT_DIR)" ]; then \
-		git clone https://github.com/skydogzz/ft_ft $(LIBFT_DIR); \
+		git clone https://github.com/skydogzz/ft_ft --depth=1 $(LIBFT_DIR); \
 	fi
 	make -C $(LIBFT_DIR)
 
