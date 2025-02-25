@@ -2,10 +2,10 @@ NAME = mlx_playground
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-ifdef DEBUG
+ifndef DEBUG
 	CFLAGS += -g3
 endif
-ifdef FSAN
+ifndef FSAN
 	CFLAGS += -fsanitize=address
 endif
 
@@ -30,7 +30,7 @@ INCLUDES = -I$(MLX_DIR) -I$(LIBFT_DIR) -I$(INC_DIR)
 all: $(NAME)
 
 $(NAME): mlx libft $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_DIR) -lmlx -lm -L$(LIBFT_DIR) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L$(MLX_DIR) -lmlx -lm -L$(LIBFT_DIR) -lft -lX11 -lXext -o $(NAME)
 
 mlx: $(MLX_DIR)/libmlx.a
 
