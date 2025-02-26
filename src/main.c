@@ -6,51 +6,36 @@
 /*   By: tstephan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 19:19:15 by tstephan          #+#    #+#             */
-/*   Updated: 2025/02/25 15:28:21 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:03:06 by tstephan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mlx_playground.h"
 
-int	full_quit(t_mlx *mlx)
-{	
-	mlx_loop_end(mlx->ptr);
-	return (true);
+int	handle_loop(t_wrapper *wrapper)
+{
+	return (1);
+	(void) wrapper;
 }
 
-int	key_pressed(int keycode, t_mlx *mlx)
+int	main(void)
 {
-	if (keycode == XK_Escape)
-		full_quit(mlx);
-	return (keycode);
-}
+	t_wrapper	wrapper;
 
-int	expose(int expose, t_mlx *mlx)
-{
-	printf("here\n");
-	return (expose);
-	(void) mlx;
-}
-
-int	main(int argc, char *argv[])
-{
-	t_mlx	mlx;
-
-	if (argc < 2)
-		exit_with_error("Need atleast 1 params", EX_USAGE);
-	if (ft_strcmp("idle", argv[1]) == 0)
-		printf("idle\n");
-	mlx.ptr = mlx_init();
-	if (!mlx.ptr)
+	wrapper.mlx.ptr = mlx_init();
+	if (!wrapper.mlx.ptr)
 		exit_with_error("Error with mlx_init()", EX_SOFTWARE);
-	mlx.win = mlx_new_window(mlx.ptr, 720, 480, "Here is the title");
-	if (!mlx.win)
+	wrapper.mlx.win = mlx_new_window(wrapper.mlx.ptr, W_W, W_H, "Title");
+	if (!wrapper.mlx.win)
 		exit_with_error("Error with mlx_new_window()", EX_SOFTWARE);
-	mlx_key_hook(mlx.win, key_pressed, &mlx);
-	mlx_hook(mlx.win, 17, 0, &full_quit, &mlx);
-	mlx_loop(mlx.ptr);
-	mlx_destroy_window(mlx.ptr, mlx.win);
-	mlx_destroy_display(mlx.ptr);
-	free(mlx.ptr);
+	mlx_hook(wrapper.mlx.win, 2, 1l << 0, key_pressed, &wrapper);
+	mlx_hook(wrapper.mlx.win, 3, 1l << 1, key_release, &wrapper);
+	mlx_hook(wrapper.mlx.win, 17, 0, full_quit, &wrapper);
+	mlx_loop_hook(wrapper.mlx.ptr, handle_loop, &wrapper);
+	mlx_loop(wrapper.mlx.ptr);
+	mlx_destroy_window(wrapper.mlx.ptr, wrapper.mlx.win);
+	mlx_destroy_display(wrapper.mlx.ptr);
+	key_clear(&wrapper.keypressed);
+	free(wrapper.mlx.ptr);
 	return (EXIT_SUCCESS);
 }

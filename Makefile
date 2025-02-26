@@ -10,8 +10,8 @@ ifndef FSAN
 endif
 
 SRC_DIR = src
-MATH_DIR = src/math
-MATH_DIR = src/utils
+UTILS_DIR = src/utils
+EVENT_DIR = src/event
 MLX_DIR = .minilibx
 LIBFT_DIR = libft
 OBJ_DIR = obj
@@ -20,10 +20,12 @@ INC_DIR = include
 SRC = $(wildcard $(SRC_DIR)/*.c)
 SRC_MATH = $(wildcard $(MATH_DIR)/*.c)
 SRC_UTILS = $(wildcard $(UTILS_DIR)/*.c)
-SRCS = $(SRC) $(SRC_MATH) $(SRC_UTILS)
+SRC_EVENT = $(wildcard $(EVENT_DIR)/*.c)
+SRCS = $(SRC) $(SRC_MATH) $(SRC_UTILS) $(SRC_EVENT)
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC)) \
-       $(patsubst $(MATH_DIR)/%.c, $(OBJ_DIR)/math_%.o, $(SRC_MATH))
+       $(patsubst $(UTILS_DIR)/%.c, $(OBJ_DIR)/utils_%.o, $(SRC_UTILS)) \
+       $(patsubst $(EVENT_DIR)/%.c, $(OBJ_DIR)/event_%.o, $(SRC_EVENT))
 
 INCLUDES = -I$(MLX_DIR) -I$(LIBFT_DIR) -I$(INC_DIR)
 
@@ -58,7 +60,10 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(OBJ_DIR)/math_%.o: $(MATH_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/utils_%.o: $(UTILS_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	
+$(OBJ_DIR)/event_%.o: $(EVENT_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
